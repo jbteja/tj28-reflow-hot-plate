@@ -36,11 +36,11 @@ When the machine is plugged in and idle or actively running a profile, the defau
 
 ### Why These Indicators Matter
 
-| Indicator | Meaning                                             |
-|-----------|-----------------------------------------------------|
-| T:        | Current measured temperature (°C)                   |
-| S:        | Current state: Idle, Preheat, Soak, Peak, or Cool   |
-| Tgt:      | The target temperature (predefined setpoint)        |
+| Indicator | Meaning                                               |
+|-----------|-------------------------------------------------------|
+| T:        | Current measured temperature (°C)                     |
+| S:        | Current state: Idle, Preheat, Soak, Reflow, or Cool   |
+| Tgt:      | The target temperature (predefined setpoint)          |
 
 ### How They Change Dynamically
 
@@ -87,11 +87,11 @@ When the machine is plugged in and idle or actively running a profile, the defau
 
 ### Reflow Run Profile
 
-| Profile           | Soak Temp (°C) | Soak Time (s) | Peak Temp (°C) | Peak Time (s) |
-|-------------------|----------------|---------------|----------------|---------------|
-| Low-Temp (138°C)  | 100            | 60            | 155            | 45            |
-| Leaded (183°C)    | 140            | 90            | 205            | 60            |
-| Lead-Free (217°C) | 160            | 90            | 240            | 60            |
+| Profile           | Preheat (°C)   | Soak Temp (°C) | Soak Time (s) | Peak Temp (°C) | Peak Time (s) | Cool-Down (°C) |
+|-------------------|----------------|----------------|---------------|----------------|---------------|----------------|
+| Low-Temp (138°C)  | 100 (~1.5°C/s) | 100            | 60            | 155            | 45            | ≤ 40°C         |
+| Leaded (183°C)    | 140 (~1.5°C/s) | 140            | 90            | 205            | 60            | ≤ 40°C         |
+| Lead-Free (217°C) | 160 (~1.5°C/s) | 160            | 90            | 240            | 60            | ≤ 40°C         |
 
 ### Manual Control
 
@@ -135,7 +135,7 @@ Declared in `platformio.ini`:
 
 3. Choose `Run Profile`, then select Low-Temp, Leaded, Lead-Free, or Custom.
 
-4. The controller automatically walks through `Preheat → Soak → Peak → Cool`.
+4. The controller automatically walks through `Preheat → Soak → Reflow → Cool`.
 
 5. When finished, the fan runs until the plate drops to ≤ 40 °C.
 

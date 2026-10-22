@@ -2,7 +2,14 @@
 #include <LiquidCrystal.h>
 
 // LCD Pin Mapping (RS, E, D4, D5, D6, D7)
-LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
+LiquidCrystal lcd(
+    LCD_RS,
+    LCD_EN,
+    LCD_D4,
+    LCD_D5,
+    LCD_D6,
+    LCD_D7
+);
 
 // Corresponding string labels for LCD
 const char* machineStateStr[] = {
@@ -35,9 +42,9 @@ MachineState currentState = STATE_IDLE;
 int targetTemp = 0;
 float currentTemp = 0.0;
 
-// Read buttons via analog pin A0
+// Read buttons via analog pin
 Button readLCDButton() {
-    int adcKeyIn = analogRead(A0);
+    int adcKeyIn = analogRead(IO_KEYS);
     if (adcKeyIn > 1000) return BTN_NONE;
     if (adcKeyIn < 50)   return BTN_RIGHT;
     if (adcKeyIn < 195)  return BTN_UP;
@@ -102,7 +109,7 @@ void updateMainMenu() {
 }
 
 void setup() {
-    pinMode(A0, INPUT);
+    pinMode(IO_KEYS, INPUT);
 
     lcd.begin(16, 2);
     lcd.clear();
